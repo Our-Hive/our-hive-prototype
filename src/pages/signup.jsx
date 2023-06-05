@@ -1,21 +1,47 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import User from "../services/User";
+
+import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
+
 
 function Signup() {
   const router = useRouter()
   const [user, setUser] = useState({ username: "", password: "", email: "" });
-
   const saveUser = () => {
     const userTemp = new User(user.username, user.password, user.email);
     userTemp.deleteUserNameLocalStorage();
     userTemp.saveDB();
     userTemp.saveUserNameLocalStorage(user.username);
+    toast("🐝 Created Account! 🍯", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: true,
+      theme: "light",
+      delay: 1,
+    });
     router.push("/profile")
   };
   return (
     <>
+      <ToastContainer
+        className="bg-amber-900 z-10 text-center font-bold fixed w-screen pt-4"
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Header />
       <main className="m-5">
         <h2 className="text-center text-xl font-bold">Register</h2>
