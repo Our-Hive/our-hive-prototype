@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Header from "../../components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function Profile() {
   const [user, setUser] = useState({
@@ -9,19 +11,82 @@ function Profile() {
     email: "",
     avatar: "",
   });
+  const router = useRouter();
+  const { id } = router.query;
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/users/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+    console.log(data);
+    setUser({
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      avatar: data.avatar,
+    });
+  }, [id]);
 
   const handleUser = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // TODO: API LOGIC LEFT
+    const response = await fetch(`http://localhost:3001/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    if (response.ok) {
+      toast("🐝 Update Successful! 🍯", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: true,
+        theme: "light",
+        delay: 1,
+      });
+    } else {
+      toast("❌ An Error has ocurred try later! 🍯", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: true,
+        theme: "light",
+        delay: 1,
+      });
+    }
   };
 
   return (
     <>
+    <ToastContainer
+            className="bg-amber-900 z-10 text-center font-bold fixed w-screen pt-4"
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={true}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
       <Header />
       {user ? (
         <main className="m-5">
@@ -45,7 +110,7 @@ function Profile() {
               name="avatar"
               value={user.avatar}
               onChange={handleUser}
-              onPaste={(e) => e.target.value = ""}
+              onPaste={(e) => (e.target.value = "")}
             />
             <label htmlFor="username">Username:</label>
             <input
@@ -79,6 +144,7 @@ function Profile() {
             <button
               className="bg-primary text-slate-950 font-bold rounded-xl py-2"
               type="button"
+              onClick={handleSubmit}
             >
               Save
             </button>

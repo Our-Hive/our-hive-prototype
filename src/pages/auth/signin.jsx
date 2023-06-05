@@ -16,8 +16,9 @@ function Signin() {
       },
       body: JSON.stringify(user)
     });
-
+    //console.log(responseData.id)
     if(response.ok){
+      const responseData = await response.json()
       toast("🐝 User Log In! 🍯", {
         position: "top-center",
         autoClose: 2000,
@@ -29,7 +30,7 @@ function Signin() {
         theme: "light",
         delay: 1,
       });
-      router.push('/profile')
+      router.push(`/profile/${responseData.id}`)
     }else{
       toast("❌ Authentication Error! 🍯", {
         position: "top-center",
