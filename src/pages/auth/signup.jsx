@@ -1,31 +1,54 @@
 import { useState } from "react";
 import Header from "../../components/Header";
-import User from "../../services/User";
-
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-
 function Signup() {
-  const router = useRouter()
-  const [user, setUser] = useState({ username: "", password: "", email: "" });
-  const saveUser = () => {
-    const userTemp = new User(user.username, user.password, user.email);
-    userTemp.deleteUserNameLocalStorage();
-    userTemp.saveDB();
-    userTemp.saveUserNameLocalStorage(user.username);
-    toast("🐝 Created Account! 🍯", {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: true,
-      theme: "light",
-      delay: 1,
+  const router = useRouter();
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+    email: "",
+    avatar:
+      "https://cloudfront-us-east-1.images.arcpublishing.com/metroworldnews/BXDB7PRPV5GUZDBFJVBWUP3BSY.jpg",
+  });
+  const saveUser = async () => {
+    //const userTemp = new User(user.username, user.password, user.email);
+    //const jsonUser = JSON.stringify(user)
+    const response = await fetch("http://localhost:3001/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user)
     });
-    router.push("/profile")
+    if(response.ok){
+      toast("🐝 Created Account! 🍯", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: true,
+        theme: "light",
+        delay: 1,
+      });
+  
+      router.push("/auth/signin");
+    } else {
+      toast("❌ Authentication Error! 🍯", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: true,
+        theme: "light",
+        delay: 1,
+      });
+    }
   };
   return (
     <>
@@ -84,5 +107,5 @@ function Signup() {
       </main>
     </>
   );
-};
+}
 export default Signup;
