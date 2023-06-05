@@ -1,8 +1,8 @@
 import Header from "@/components/Header";
 import { useState } from "react";
 
-function DiarioOcasional() {
-  const [registroOcasional, setRegistroOcasional] = useState({
+function DiarioEmocional() {
+  const [registroDiario, setRegistroDiario] = useState({
     title: "",
     description: "",
     emotion: "",
@@ -14,7 +14,7 @@ function DiarioOcasional() {
 
   const handleRegister = (e) => {
     const { name, value } = e.target;
-    setRegistroOcasional((prevRegistro) => ({ ...prevRegistro, [name]: value }));
+    setRegistroDiario((prevRegistro) => ({ ...prevRegistro, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -23,7 +23,7 @@ function DiarioOcasional() {
     const month = date.getMonth();
     const day = date.getDate();
     const formatedDate = `${year}-${month}-${day}`;
-    setRegistroOcasional((prevRegistro) => ({
+    setRegistroDiario((prevRegistro) => ({
       ...prevRegistro,
       fecha: formatedDate,
     }));
@@ -31,11 +31,11 @@ function DiarioOcasional() {
   };
 
   return (
-    <div className="h-screen" style={{backgroundImage: `url("/honeycombs.jpeg")`}}>
+    <div className="h-screen bg-cover bg-repeat" style={{backgroundImage: `url("/honeycombs.jpeg")`}}>
       <Header />
       <main className="m-5">
         <h1 className="text-center text-xl font-bold mt-5">
-          REGISTRO DIARIO OCASIONAL
+          REGISTRO DIARIO EMOCIONAL
         </h1>
         <form className="grid gap-5 mt-5">
           <label htmlFor="title">Title:</label>
@@ -44,7 +44,7 @@ function DiarioOcasional() {
             type="text"
             name="title"
             placeholder="Your Title"
-            value={registroOcasional.title}
+            value={registroDiario.title}
             onChange={handleRegister}
           />
           <label htmlFor="title">Emotion:</label>
@@ -53,7 +53,7 @@ function DiarioOcasional() {
             type="text"
             name="emotion"
             placeholder="Emotion That You Feel"
-            value={registroOcasional.emotion}
+            value={registroDiario.emotion}
             onChange={handleRegister}
           />
           <label htmlFor="description">Description:</label>
@@ -62,7 +62,7 @@ function DiarioOcasional() {
             type="text"
             placeholder="Tell Us About Your Feeling"
             name="description"
-            value={registroOcasional.description}
+            value={registroDiario.description}
             rows={10}
             onChange={handleRegister}
           ></textarea>
@@ -78,4 +78,4 @@ function DiarioOcasional() {
   );
 }
 
-export default DiarioOcasional;
+export default DiarioEmocional;

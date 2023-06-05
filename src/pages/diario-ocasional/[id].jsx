@@ -1,8 +1,11 @@
 import Header from "@/components/Header";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
-function DiarioEmocional() {
-  const [registroDiario, setRegistroDiario] = useState({
+function DiarioOcasional() {
+  const router = useRouter();
+  const { id } = router.query;
+  const [registroOcasional, setRegistroOcasional] = useState({
     title: "",
     description: "",
     emotion: "",
@@ -14,7 +17,10 @@ function DiarioEmocional() {
 
   const handleRegister = (e) => {
     const { name, value } = e.target;
-    setRegistroDiario((prevRegistro) => ({ ...prevRegistro, [name]: value }));
+    setRegistroOcasional((prevRegistro) => ({
+      ...prevRegistro,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -23,7 +29,7 @@ function DiarioEmocional() {
     const month = date.getMonth();
     const day = date.getDate();
     const formatedDate = `${year}-${month}-${day}`;
-    setRegistroDiario((prevRegistro) => ({
+    setRegistroOcasional((prevRegistro) => ({
       ...prevRegistro,
       fecha: formatedDate,
     }));
@@ -31,11 +37,14 @@ function DiarioEmocional() {
   };
 
   return (
-    <div className="h-screen" style={{backgroundImage: `url("/honeycombs.jpeg")`}}>
+    <div
+      className="h-screen bg-cover bg-repeat"
+      style={{ backgroundImage: `url("/honeycombs.jpeg")` }}
+    >
       <Header />
       <main className="m-5">
         <h1 className="text-center text-xl font-bold mt-5">
-          REGISTRO DIARIO EMOCIONAL
+          REGISTRO DIARIO OCASIONAL
         </h1>
         <form className="grid gap-5 mt-5">
           <label htmlFor="title">Title:</label>
@@ -44,7 +53,7 @@ function DiarioEmocional() {
             type="text"
             name="title"
             placeholder="Your Title"
-            value={registroDiario.title}
+            value={registroOcasional.title}
             onChange={handleRegister}
           />
           <label htmlFor="title">Emotion:</label>
@@ -53,7 +62,7 @@ function DiarioEmocional() {
             type="text"
             name="emotion"
             placeholder="Emotion That You Feel"
-            value={registroDiario.emotion}
+            value={registroOcasional.emotion}
             onChange={handleRegister}
           />
           <label htmlFor="description">Description:</label>
@@ -62,7 +71,7 @@ function DiarioEmocional() {
             type="text"
             placeholder="Tell Us About Your Feeling"
             name="description"
-            value={registroDiario.description}
+            value={registroOcasional.description}
             rows={10}
             onChange={handleRegister}
           ></textarea>
@@ -78,4 +87,4 @@ function DiarioEmocional() {
   );
 }
 
-export default DiarioEmocional;
+export default DiarioOcasional;
