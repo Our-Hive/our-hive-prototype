@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import User from "../services/User";
+import { ToastContainer, toast } from "react-toastify";
 
 export default signin = () => {
   const [user, setUser] = useState({ username: "", password: "" });
@@ -9,10 +10,34 @@ export default signin = () => {
     const userTemp = new User();
     userTemp.deleteUserNameLocalStorage();
     userTemp.saveUserNameLocalStorage(user.username);
+    toast("🐝 User Log In! 🍯", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: true,
+      theme: "light",
+      delay: 1,
+    });
   };
 
   return (
     <>
+      <ToastContainer
+        className="bg-amber-900 z-10 text-center font-bold fixed w-screen pt-4"
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Header />
       <main className="m-5">
         <h2 className="text-center text-xl font-bold">Log In</h2>

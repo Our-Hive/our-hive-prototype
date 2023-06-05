@@ -11,7 +11,7 @@ export default signup = () => {
     userTemp.deleteUserNameLocalStorage();
     userTemp.saveDB();
     userTemp.saveUserNameLocalStorage(user.username);
-    toast("🐝 Cuenta Creada! 🍯", {
+    toast("🐝 Created Account! 🍯", {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
