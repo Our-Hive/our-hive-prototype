@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import User from "../services/User";
 import { ToastContainer, toast } from "react-toastify";
 
-export default signin = () => {
+function Signin() {
   const [user, setUser] = useState({ username: "", password: "" });
 
   const saveUser = () => {
@@ -71,4 +71,5 @@ export default signin = () => {
       </main>
     </>
   );
-};
+}
+export default Signin;

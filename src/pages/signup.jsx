@@ -1,11 +1,14 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import User from "../services/User";
+
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 
-export default signup = () => {
+
+function Signup() {
+  const router = useRouter()
   const [user, setUser] = useState({ username: "", password: "", email: "" });
-
   const saveUser = () => {
     const userTemp = new User(user.username, user.password, user.email);
     userTemp.deleteUserNameLocalStorage();
@@ -22,6 +25,7 @@ export default signup = () => {
       theme: "light",
       delay: 1,
     });
+    router.push("/profile")
   };
   return (
     <>
@@ -81,3 +85,4 @@ export default signup = () => {
     </>
   );
 };
+export default Signup;

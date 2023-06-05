@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 
 // * services
 import User from "../services/User";
-export default profile = () => {
-  const [user, setUser] = useState({ username: "", email: "", password: "" });
+function Profile() {
+  const [user, setUser] = useState({ username: "",  password: "", email: "" });
 
   useEffect(() => {
     const userTemp = new User();
@@ -60,3 +60,4 @@ export default profile = () => {
     </>
   );
 };
+export default Profile;

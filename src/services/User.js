@@ -2,8 +2,8 @@ import users from "../data/users";
 import UserEntity from "../models/User.entity";
 
 export default class User extends UserEntity {
-  constructor(username, email, password) {
-    super(username, email, password);
+  constructor(username, password, email,) {
+    super(username,  password, email);
   }
   getUser(username) {
     console.log(users);
