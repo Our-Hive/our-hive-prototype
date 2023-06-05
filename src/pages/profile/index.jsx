@@ -17,6 +17,7 @@ function Profile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // TODO: API LOGIC LEFT
   };
 
   return (
