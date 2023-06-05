@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import User from "../services/User";
 
-export default signin = () => {
+function Signin() {
   const [user, setUser] = useState({ username: "", password: "" });
 
   const saveUser = () => {
@@ -46,4 +46,5 @@ export default signin = () => {
       </main>
     </>
   );
-};
+}
+export default Signin;

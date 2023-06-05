@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Header from "../components/Header";
 import User from "../services/User";
+import { useRouter } from "next/router";
 
-export default signup = () => {
+function Signup() {
+  const router = useRouter()
   const [user, setUser] = useState({ username: "", password: "", email: "" });
 
   const saveUser = () => {
@@ -10,6 +12,7 @@ export default signup = () => {
     userTemp.deleteUserNameLocalStorage();
     userTemp.saveDB();
     userTemp.saveUserNameLocalStorage(user.username);
+    router.push("/profile")
   };
   return (
     <>
@@ -56,3 +59,4 @@ export default signup = () => {
     </>
   );
 };
+export default Signup;
