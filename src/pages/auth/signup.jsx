@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Header from "../components/Header";
-import User from "../services/User";
+import Header from "../../components/Header";
+import User from "../../services/User";
 
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
