@@ -10,12 +10,10 @@ function MenuOcasional() {
   useEffect(() => {
     fetch(`http://localhost:3001/recordDE/${id}`)
       .then((response) => response.json())
-      .then((data) => {
-        setDiario(data);
-      });
+      .then((data) => setDiario(data));
   }, [id]);
 
-  const handleSubmit = () => {+
+  const handleSubmit = () => {
     router.push(`/diario-ocasional/${id}`)
   };
 
