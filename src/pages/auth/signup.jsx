@@ -51,7 +51,8 @@ function Signup() {
     }
   };
   return (
-    <>
+    <div className="h-screen bg-cover bg-repeat-y"
+    style={{ backgroundImage: `url("/honeycombs.jpeg")` }}>
       <ToastContainer
         className="bg-amber-900 z-10 text-center font-bold fixed w-screen pt-4"
         position="top-center"
@@ -105,7 +106,7 @@ function Signup() {
           </button>
         </form>
       </main>
-    </>
+    </div>
   );
 }
 export default Signup;

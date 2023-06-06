@@ -1,23 +1,30 @@
 import Header from "@/components/Header";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 function DiarioOcasional() {
+  const router = useRouter();
+  const { id } = router.query;
   const [registroOcasional, setRegistroOcasional] = useState({
     title: "",
     description: "",
     emotion: "",
     fecha: "",
-    userId: "",
+    userid: id,
   });
 
   const date = new Date();
 
   const handleRegister = (e) => {
     const { name, value } = e.target;
-    setRegistroOcasional((prevRegistro) => ({ ...prevRegistro, [name]: value }));
+    setRegistroOcasional((prevRegistro) => ({
+      ...prevRegistro,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -27,11 +34,59 @@ function DiarioOcasional() {
       ...prevRegistro,
       fecha: formatedDate,
     }));
-    // TODO: Send to database
+    const response = await fetch("http://localhost:3001/emotion", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registroOcasional),
+    });
+    if (response.ok) {
+      toast("🐝 Post Successful! 🍯", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: true,
+        theme: "light",
+        delay: 1,
+      });
+      router.push(`/menu-ocasional/${id}`);
+    } else {
+      toast("❌ Post Error! 🍯", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: true,
+        theme: "light",
+        delay: 1,
+      });
+    }
   };
 
   return (
-    <div className="h-screen" style={{backgroundImage: `url("/honeycombs.jpeg")`}}>
+    <div
+      className="h-screen bg-cover bg-repeat"
+      style={{ backgroundImage: `url("/honeycombs.jpeg")` }}
+    >
+      <ToastContainer
+        className="bg-amber-900 z-10 text-center font-bold fixed w-screen pt-4"
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Header />
       <main className="m-5">
         <h1 className="text-center text-xl font-bold mt-5">
@@ -69,6 +124,7 @@ function DiarioOcasional() {
           <button
             className="bg-primary text-slate-950 font-bold rounded-xl py-2"
             type="button"
+            onClick={handleSubmit}
           >
             Post
           </button>

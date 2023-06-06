@@ -37,7 +37,6 @@ function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: API LOGIC LEFT
     const response = await fetch(`http://localhost:3001/users/${id}`, {
       method: "PATCH",
       headers: {
@@ -72,8 +71,12 @@ function Profile() {
     }
   };
 
+  const handleDiary = (route) =>{
+    router.push(`/${route}/${id}`)
+  }
+
   return (
-    <>
+    <div className="h-screen bg-cover bg-repeat-y" style={{backgroundImage: `url("/honeycombs.jpeg")`}}>
     <ToastContainer
             className="bg-amber-900 z-10 text-center font-bold fixed w-screen pt-4"
             position="top-center"
@@ -148,12 +151,26 @@ function Profile() {
             >
               Save
             </button>
+            <button
+              className="bg-primary text-slate-950 font-bold rounded-xl py-2"
+              type="button"
+              onClick={() => handleDiary("menu-emocional")}
+            >
+              Registro Diario
+            </button>
+            <button
+              className="bg-primary text-slate-950 font-bold rounded-xl py-2"
+              type="button"
+              onClick={() => handleDiary("menu-ocasional")}
+            >
+              Registro Ocasional
+            </button>
           </form>
         </main>
       ) : (
         <h2 className="text-center text-xl font-bold my-5">Loading...</h2>
       )}
-    </>
+    </div>
   );
 }
 export default Profile;
