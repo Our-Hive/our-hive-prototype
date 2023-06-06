@@ -14,11 +14,11 @@ function Signin() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     });
     //console.log(responseData.id)
-    if(response.ok){
-      const responseData = await response.json()
+    if (response.ok) {
+      const responseData = await response.json();
       toast("🐝 User Log In! 🍯", {
         position: "top-center",
         autoClose: 2000,
@@ -30,8 +30,8 @@ function Signin() {
         theme: "light",
         delay: 1,
       });
-      router.push(`/profile/${responseData.id}`)
-    }else{
+      router.push(`/profile/${responseData.id}`);
+    } else {
       toast("❌ Authentication Error! 🍯", {
         position: "top-center",
         autoClose: 2000,
@@ -44,11 +44,17 @@ function Signin() {
         delay: 1,
       });
     }
+  };
 
+  const handleSingup = () => {
+    router.push("/auth/signup");
   };
 
   return (
-    <>
+    <div
+      className="h-screen bg-cover bg-repeat-y"
+      style={{ backgroundImage: `url("/honeycombs.jpeg")` }}
+    >
       <ToastContainer
         className="bg-amber-900 z-10 text-center font-bold fixed w-screen pt-4"
         position="top-center"
@@ -91,9 +97,16 @@ function Signin() {
           >
             Sign In
           </button>
+          <button
+            className="bg-primary text-slate-950 font-bold rounded-xl py-2"
+            type="button"
+            onClick={handleSingup}
+          >
+            Sign Up
+          </button>
         </form>
       </main>
-    </>
+    </div>
   );
 }
 export default Signin;
